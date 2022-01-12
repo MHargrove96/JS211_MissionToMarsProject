@@ -10,9 +10,36 @@ const jobTypes = {
 };
 
 // Your code will go here
+class CrewMember {
+  constructor(name, job, specialSkill, ship){
+    this.name = name;
+    this.job = job;
+    this.specialSkill = specialSkill;
+    // this.ship = ship;
+  }
 
+  enterShip = (ship) => {
+    this.ship = ship
+    ship.crew.push(this)
+  }
+}
 
+class Ship{
+  constructor(name, type, ability, crew){ //why does this still pass when crew is taken out?
+    this.name = name; 
+    this.type = type;
+    this.ability = ability;
+    this.crew = [];
+  }
 
+  missionStatement = () => {
+    if(this.crew.length === 0){ 
+      return "Can't perform a mission yet."
+    } else if (this.crew.length !== 0){
+      return this.ability 
+    }
+  }
+}
 
 
 
@@ -30,7 +57,7 @@ if (typeof describe === 'function'){
       assert.equal(crewMember1.job, 'pilot');
       assert.equal(crewMember1.specialSkill, 'chemistry');
       assert.equal(crewMember1.ship, null);
-    });
+    }); //passed------------------------------------------------------------------------------------------
 
     it('can enter a ship', function(){
       // this creates a new Ship. Can you build a class that can be called so that this Ship can be built?
@@ -40,7 +67,7 @@ if (typeof describe === 'function'){
       assert.equal(crewMember1.ship, mav);
       assert.equal(mav.crew.length, 1);
       assert.equal(mav.crew[0], crewMember1);
-    });
+    });  //passed------------------------------------------------------------------------------------------
   });
 
   describe('Ship', function(){
@@ -49,8 +76,8 @@ if (typeof describe === 'function'){
       assert.equal(mav.name, 'Mars Ascent Vehicle');
       assert.equal(mav.type, 'MAV');
       assert.equal(mav.ability, 'Ascend into low orbit');
-      assert.equal(mav.crew.length, 0);
-    });
+      assert.equal(mav.crew.length, 0); 
+    }); //passed------------------------------------------------------------------------------------------
 
     it('can return a mission statement correctly', function(){
       let mav = new Ship('Mars Ascent Vehicle', 'MAV', 'Ascend into low orbit');
@@ -65,6 +92,6 @@ if (typeof describe === 'function'){
 
       crewMember2.enterShip(hermes);
       assert.equal(hermes.missionStatement(), "Interplanetary Space Travel");
-    });
+    }); //passed------------------------------------------------------------------------------------------
   });
 }
